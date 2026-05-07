@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestra Historia — EJE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#080808;--dark:#111111;--card:#161616;--border:#252525;--white:#F4F0EA;--off-white:#c8c4be;--gold:#C4933F;--gold-light:#d9a84e;--text:#e8e4de}
+    html{scroll-behavior:smooth}body{background:var(--black);color:var(--text);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--gold)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(8,8,8,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none}.logo-box{border:2px solid var(--white);padding:4px 10px;display:flex;align-items:center}.logo-box span{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.35rem;letter-spacing:0.08em;color:var(--white)}.logo-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.25em;color:var(--off-white);text-transform:uppercase}
+    .nav-links{display:flex;gap:2rem;list-style:none}.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--off-white);text-decoration:none;transition:color 0.2s}.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:0.5rem 1.2rem;text-decoration:none}
+    .page-header{padding:9rem 3rem 5rem;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end}
+    .breadcrumb{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--off-white);margin-bottom:1.5rem;grid-column:1/-1}
+    .section-label{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.8rem}
+    .section-label::before{content:'';display:block;width:1.5rem;height:1px;background:var(--gold)}
+    .page-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,7vw,6.5rem);line-height:0.92;color:var(--white);text-transform:uppercase}
+    .page-title .accent{color:var(--gold)}
+    .header-right{display:flex;flex-direction:column;justify-content:flex-end}
+    .big-statement{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.3rem,2.5vw,2rem);font-weight:700;line-height:1.3;color:var(--white);text-transform:uppercase;margin-bottom:1.5rem}
+    .big-statement .gold{color:var(--gold)}
+    .story-section{display:grid;grid-template-columns:1fr 2fr;border-bottom:1px solid var(--border)}
+    .story-num{padding:4rem 3rem;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:0.5rem}
+    .st-num{font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:900;color:var(--border);line-height:1}
+    .st-label{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)}
+    .story-body{padding:4rem 3rem;display:flex;flex-direction:column;justify-content:center;gap:1.5rem}
+    .story-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--white);text-transform:uppercase;line-height:1}
+    .story-text{font-size:0.95rem;line-height:1.9;color:var(--off-white)}
+    .values-section{padding:5rem 3rem;border-bottom:1px solid var(--border)}
+    .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--border);margin-top:2.5rem}
+    .value-item{background:var(--card);padding:2.5rem 2rem}
+    .value-icon{font-size:2rem;margin-bottom:1rem;opacity:0.85}
+    .value-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:var(--white);text-transform:uppercase;margin-bottom:0.8rem}
+    .value-desc{font-size:0.83rem;line-height:1.7;color:var(--off-white)}
+    footer{border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:var(--dark)}
+    .footer-tagline{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--off-white)}.footer-copy{font-size:0.75rem;color:#555}
+    .wa-float{position:fixed;bottom:2rem;right:2rem;z-index:99;width:3.2rem;height:3.2rem;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.35);animation:floatPulse 3s ease-in-out infinite}.wa-float svg{width:1.6rem;height:1.6rem;fill:white}
+    @keyframes floatPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 32px rgba(37,211,102,0.6)}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:768px){nav{padding:1.2rem 1.5rem}.nav-links{display:none}.nav-cta{display:none}.page-header{padding:7rem 1.5rem 3rem;grid-template-columns:1fr;gap:2rem}.story-section{grid-template-columns:1fr}.story-num{padding:3rem 1.5rem;border-right:none;border-bottom:1px solid var(--border)}.story-body{padding:2.5rem 1.5rem}.values-section{padding:3rem 1.5rem}.values-grid{grid-template-columns:1fr 1fr}footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.5rem}}
+  </style>
+</head>
+<body>
+<nav><a href="index.html" class="nav-logo"><div class="logo-box"><span>EJE</span></div><div class="logo-sub">Café en su punto</div></a><ul class="nav-links"><li><a href="cafes.html">Nuestros Cafés</a></li><li><a href="metodos.html">Métodos</a></li><li><a href="tutoriales.html">Tutoriales</a></li><li><a href="nosotros.html" class="active">Nosotros</a></li><li><a href="colombia.html">Colombia</a></li><li><a href="contacto.html">Contacto</a></li></ul><a class="nav-cta" href="contacto.html">Pedir ahora</a></nav>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">EJE</a> → Nuestra Historia</div>
+  <div>
+    <div class="section-label">Quiénes somos</div>
+    <h1 class="page-title">Nuestra<br><span class="accent">Historia.</span></h1>
+  </div>
+  <div class="header-right">
+    <p class="big-statement">El café es el <span class="gold">eje</span> de cada mañana.<br>El eje de cada reunión.<br>El eje de Colombia.</p>
+  </div>
+</div>
+
+<div class="story-section reveal">
+  <div class="story-num"><div class="st-num">01</div><div class="st-label">El problema</div></div>
+  <div class="story-body">
+    <div class="story-title">Colombia exporta su mejor café.<br>¿Y los colombianos?</div>
+    <p class="story-text">Colombia exporta café al mundo entero — los mejores granos viajan a mesas de Europa, Asia y Norteamérica. Pero en casa, muchos colombianos terminan tomando el café de menor calidad, el que se queda cuando lo mejor ya salió por la puerta.</p>
+    <p class="story-text">Eso no tiene sentido. Y EJE nació para cambiar exactamente eso.</p>
+  </div>
+</div>
+
+<div class="story-section reveal">
+  <div class="story-num"><div class="st-num">02</div><div class="st-label">La solución</div></div>
+  <div class="story-body">
+    <div class="story-title">Directo de la finca.<br>Sin rodeos.</div>
+    <p class="story-text">Trabajamos directamente con fincas cafeteras de todo el país — del Huila al Nariño, de Antioquia al Cauca — para traerte los sabores reales de nuestra tierra, sin intermediarios que encarezcan el camino ni compliquen el proceso.</p>
+    <p class="story-text">Café colombiano de verdad, para colombianos. Del productor a tu taza. Al mejor precio posible, con la mejor calidad disponible, de la manera más sencilla.</p>
+  </div>
+</div>
+
+<div class="story-section reveal">
+  <div class="story-num"><div class="st-num">03</div><div class="st-label">La visión</div></div>
+  <div class="story-body">
+    <div class="story-title">Más que café.<br>Un movimiento.</div>
+    <p class="story-text">Porque los colombianos merecen tomar el café que Colombia le da al resto del mundo. No resignarse a lo que queda — sino acceder a lo mejor, conocer su origen, saber cómo prepararlo y disfrutarlo en su punto exacto.</p>
+    <p class="story-text">Eso es EJE. Café en su punto. Precisión en cada paso. Orgullo colombiano en cada taza.</p>
+  </div>
+</div>
+
+<div class="values-section reveal">
+  <div class="section-label">Nuestros valores</div>
+  <div class="values-grid">
+    <div class="value-item"><div class="value-icon">🌱</div><div class="value-name">Origen</div><p class="value-desc">Cada café que vendemos tiene una finca, una región y una historia verificable. Sin misterios.</p></div>
+    <div class="value-item"><div class="value-icon">⭐</div><div class="value-name">Calidad</div><p class="value-desc">Solo granos de especialidad. Si no cumple el estándar EJE, no llega a tu taza.</p></div>
+    <div class="value-item"><div class="value-icon">🎯</div><div class="value-name">Precisión</div><p class="value-desc">Del tueste al empaque, cada paso es deliberado. La precisión no es un detalle — es el producto.</p></div>
+    <div class="value-item"><div class="value-icon">🤝</div><div class="value-name">Acceso</div><p class="value-desc">El mejor café colombiano debe ser accesible para los colombianos. Sin intermediarios, sin precios inflados.</p></div>
+  </div>
+</div>
+
+<footer><div class="nav-logo" style="pointer-events:none"><div class="logo-box" style="border-color:#333"><span style="color:#555">EJE</span></div></div><span class="footer-tagline">ORIGEN · CALIDAD · PRECISIÓN</span><span class="footer-copy">© 2026 EJE — Café en su punto</span></footer>
+<a class="wa-float" href="https://wa.me/573332874542?text=Hola%20EJE%20%E2%98%95%20Quiero%20hacer%20un%20pedido" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<script>const reveals=document.querySelectorAll('.reveal');const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:0.08});reveals.forEach(el=>observer.observe(el));</script>
+</body>
+</html>

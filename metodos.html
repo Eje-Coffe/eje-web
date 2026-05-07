@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Métodos — EJE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#080808;--dark:#111111;--card:#161616;--border:#252525;--white:#F4F0EA;--off-white:#c8c4be;--gold:#C4933F;--gold-light:#d9a84e;--text:#e8e4de}
+    html{scroll-behavior:smooth}body{background:var(--black);color:var(--text);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--gold)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(8,8,8,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none}
+    .logo-box{border:2px solid var(--white);padding:4px 10px;display:flex;align-items:center}
+    .logo-box span{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.35rem;letter-spacing:0.08em;color:var(--white)}
+    .logo-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.25em;color:var(--off-white);text-transform:uppercase}
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--off-white);text-decoration:none;transition:color 0.2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+    .nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:0.5rem 1.2rem;text-decoration:none}
+    .page-header{padding:9rem 3rem 4rem;border-bottom:1px solid var(--border)}
+    .breadcrumb{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--off-white);margin-bottom:1.5rem}
+    .breadcrumb a{color:var(--gold);text-decoration:none}
+    .section-label{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.8rem}
+    .section-label::before{content:'';display:block;width:1.5rem;height:1px;background:var(--gold)}
+    .page-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,8vw,7rem);line-height:0.92;color:var(--white);text-transform:uppercase;margin-bottom:1.5rem}
+    .page-title .accent{color:var(--gold)}
+    .page-sub{font-size:1rem;line-height:1.8;color:var(--off-white);max-width:580px}
+    .methods-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;background:var(--border)}
+    .method-card{background:var(--card);display:grid;grid-template-columns:1fr 1fr;min-height:360px;position:relative;overflow:hidden;transition:background 0.3s}
+    .method-card:hover{background:#1c1c1c}
+    .method-card::after{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform 0.4s ease}
+    .method-card:hover::after{transform:scaleY(1)}
+    .method-left{padding:3rem 2rem;display:flex;flex-direction:column;gap:1rem;border-right:1px solid var(--border)}
+    .method-num{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase}
+    .method-icon{font-size:3rem;opacity:0.85}
+    .method-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--white);text-transform:uppercase;line-height:1}
+    .method-level{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--border);color:var(--off-white)}
+    .method-desc{font-size:0.85rem;line-height:1.7;color:var(--off-white);flex:1}
+    .method-right{padding:3rem 2rem;display:flex;flex-direction:column;gap:1rem}
+    .method-specs{display:flex;flex-direction:column;gap:0.8rem;flex:1}
+    .spec-row{display:flex;flex-direction:column;gap:0.2rem;padding-bottom:0.8rem;border-bottom:1px solid var(--border)}
+    .spec-row:last-of-type{border-bottom:none}
+    .spec-label{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold)}
+    .spec-value{font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;font-weight:600;color:var(--off-white)}
+    .btn-wa{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);background:var(--gold);border:none;padding:0.65rem 1.4rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;transition:background 0.2s;width:100%;justify-content:center}
+    .btn-wa:hover{background:var(--gold-light)}
+    .btn-tutorial{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--off-white);background:transparent;border:1px solid var(--border);padding:0.65rem 1.4rem;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;transition:border-color 0.2s;width:100%}
+    .btn-tutorial:hover{border-color:var(--white);color:var(--white)}
+    footer{border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:var(--dark)}
+    .footer-tagline{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--off-white)}
+    .footer-copy{font-size:0.75rem;color:#555}
+    .wa-float{position:fixed;bottom:2rem;right:2rem;z-index:99;width:3.2rem;height:3.2rem;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.35);animation:floatPulse 3s ease-in-out infinite}
+    .wa-float svg{width:1.6rem;height:1.6rem;fill:white}
+    @keyframes floatPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 32px rgba(37,211,102,0.6)}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:768px){nav{padding:1.2rem 1.5rem}.nav-links{display:none}.nav-cta{display:none}.page-header{padding:7rem 1.5rem 3rem}.methods-grid{grid-template-columns:1fr}.method-card{grid-template-columns:1fr}.method-left{border-right:none;border-bottom:1px solid var(--border)}footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.5rem}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><div class="logo-box"><span>EJE</span></div><div class="logo-sub">Café en su punto</div></a>
+  <ul class="nav-links">
+    <li><a href="cafes.html">Nuestros Cafés</a></li>
+    <li><a href="metodos.html" class="active">Métodos</a></li>
+    <li><a href="tutoriales.html">Tutoriales</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="colombia.html">Colombia</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+  <a class="nav-cta" href="contacto.html">Pedir ahora</a>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">EJE</a> → Métodos</div>
+  <div class="section-label">Herramientas</div>
+  <h1 class="page-title">Métodos de<br><span class="accent">Preparación.</span></h1>
+  <p class="page-sub">Cada método extrae el café de manera diferente. Aquí encuentras los que tenemos disponibles, con todo lo que necesitas para elegir el tuyo.</p>
+</div>
+
+<div class="methods-grid">
+
+  <div class="method-card reveal">
+    <div class="method-left">
+      <div class="method-num">01 — MÉTODO</div>
+      <div class="method-icon">🫗</div>
+      <div class="method-name">Prensa<br>Francesa</div>
+      <span class="method-level">Nivel: Principiante</span>
+      <p class="method-desc">El método más directo y fiel al sabor del café. Sin filtros de papel que retengan los aceites esenciales. Resultado: una taza con cuerpo, textura y carácter.</p>
+    </div>
+    <div class="method-right">
+      <div class="method-specs">
+        <div class="spec-row"><span class="spec-label">Tiempo de preparación</span><span class="spec-value">4 minutos</span></div>
+        <div class="spec-row"><span class="spec-label">Molienda ideal</span><span class="spec-value">Gruesa</span></div>
+        <div class="spec-row"><span class="spec-label">Temperatura del agua</span><span class="spec-value">92 – 96 °C</span></div>
+        <div class="spec-row"><span class="spec-label">Ratio café / agua</span><span class="spec-value">1:15 (15g / 225ml)</span></div>
+        <div class="spec-row"><span class="spec-label">Perfil en taza</span><span class="spec-value">Cuerpo robusto, sin acidez pronunciada</span></div>
+      </div>
+      <a class="btn-wa" href="https://wa.me/573332874542?text=Hola%20EJE%20%E2%98%95%20Quiero%20pedir%20una%20Prensa%20Francesa" target="_blank">Pedir Prensa Francesa</a>
+      <a class="btn-tutorial" href="tutoriales.html#prensa">Ver tutorial →</a>
+    </div>
+  </div>
+
+  <div class="method-card reveal" style="transition-delay:0.1s">
+    <div class="method-left">
+      <div class="method-num">02 — MÉTODO</div>
+      <div class="method-icon">☕</div>
+      <div class="method-name">Pour<br>Over</div>
+      <span class="method-level">Nivel: Intermedio</span>
+      <p class="method-desc">Vertido lento y controlado sobre un filtro de papel. Resalta la acidez y los matices más delicados del café. Ideal para variedades de especialidad de Nariño o Cauca.</p>
+    </div>
+    <div class="method-right">
+      <div class="method-specs">
+        <div class="spec-row"><span class="spec-label">Tiempo de preparación</span><span class="spec-value">3 – 4 minutos</span></div>
+        <div class="spec-row"><span class="spec-label">Molienda ideal</span><span class="spec-value">Media-fina</span></div>
+        <div class="spec-row"><span class="spec-label">Temperatura del agua</span><span class="spec-value">88 – 94 °C</span></div>
+        <div class="spec-row"><span class="spec-label">Ratio café / agua</span><span class="spec-value">1:16 (18g / 290ml)</span></div>
+        <div class="spec-row"><span class="spec-label">Perfil en taza</span><span class="spec-value">Limpio, floral, alta complejidad</span></div>
+      </div>
+      <a class="btn-wa" href="https://wa.me/573332874542?text=Hola%20EJE%20%E2%98%95%20Quiero%20pedir%20un%20Pour%20Over" target="_blank">Pedir Pour Over</a>
+      <a class="btn-tutorial" href="tutoriales.html#pourover">Ver tutorial →</a>
+    </div>
+  </div>
+
+  <div class="method-card reveal" style="transition-delay:0.15s">
+    <div class="method-left">
+      <div class="method-num">03 — MÉTODO</div>
+      <div class="method-icon">🫖</div>
+      <div class="method-name">Moka<br>Express</div>
+      <span class="method-level">Nivel: Principiante</span>
+      <p class="method-desc">La cafetera italiana de toda la vida. Presión de vapor que extrae un café concentrado, intenso y con mucho carácter. El método favorito de las cocinas colombianas.</p>
+    </div>
+    <div class="method-right">
+      <div class="method-specs">
+        <div class="spec-row"><span class="spec-label">Tiempo de preparación</span><span class="spec-value">5 – 7 minutos</span></div>
+        <div class="spec-row"><span class="spec-label">Molienda ideal</span><span class="spec-value">Fina</span></div>
+        <div class="spec-row"><span class="spec-label">Temperatura del agua</span><span class="spec-value">Agua fría al inicio</span></div>
+        <div class="spec-row"><span class="spec-label">Ratio café / agua</span><span class="spec-value">Hasta el borde del filtro</span></div>
+        <div class="spec-row"><span class="spec-label">Perfil en taza</span><span class="spec-value">Intenso, concentrado, cremoso</span></div>
+      </div>
+      <a class="btn-wa" href="https://wa.me/573332874542?text=Hola%20EJE%20%E2%98%95%20Quiero%20pedir%20una%20Moka%20Express" target="_blank">Pedir Moka Express</a>
+      <a class="btn-tutorial" href="tutoriales.html#moka">Ver tutorial →</a>
+    </div>
+  </div>
+
+  <div class="method-card reveal" style="transition-delay:0.2s">
+    <div class="method-left">
+      <div class="method-num">04 — MÉTODO</div>
+      <div class="method-icon">🧺</div>
+      <div class="method-name">Colador<br>de Tela</div>
+      <span class="method-level">Nivel: Principiante</span>
+      <p class="method-desc">El método más colombiano de todos. El chorreado de toda la vida, pero hecho con precisión. Simple, económico y sorprendentemente expresivo cuando se usa bien.</p>
+    </div>
+    <div class="method-right">
+      <div class="method-specs">
+        <div class="spec-row"><span class="spec-label">Tiempo de preparación</span><span class="spec-value">3 – 5 minutos</span></div>
+        <div class="spec-row"><span class="spec-label">Molienda ideal</span><span class="spec-value">Media</span></div>
+        <div class="spec-row"><span class="spec-label">Temperatura del agua</span><span class="spec-value">90 – 96 °C</span></div>
+        <div class="spec-row"><span class="spec-label">Ratio café / agua</span><span class="spec-value">1:14 (20g / 280ml)</span></div>
+        <div class="spec-row"><span class="spec-label">Perfil en taza</span><span class="spec-value">Suave, tradicional, equilibrado</span></div>
+      </div>
+      <a class="btn-wa" href="https://wa.me/573332874542?text=Hola%20EJE%20%E2%98%95%20Quiero%20pedir%20un%20Colador%20de%20Tela" target="_blank">Pedir Colador</a>
+      <a class="btn-tutorial" href="tutoriales.html#colador">Ver tutorial →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="nav-logo" style="pointer-events:none"><div class="logo-box" style="border-color:#333"><span style="color:#555">EJE</span></div></div>
+  <span class="footer-tagline">ORIGEN · CALIDAD · PRECISIÓN</span>
+  <span class="footer-copy">© 2026 EJE — Café en su punto</span>
+</footer>
+<a class="wa-float" href="https://wa.me/573332874542?text=Hola%20EJE%20%E2%98%95%20Quiero%20hacer%20un%20pedido" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+<script>
+  const reveals=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:0.08});
+  reveals.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

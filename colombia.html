@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Café Colombiano — EJE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}:root{--black:#080808;--dark:#111111;--card:#161616;--border:#252525;--white:#F4F0EA;--off-white:#c8c4be;--gold:#C4933F;--gold-light:#d9a84e;--text:#e8e4de}html{scroll-behavior:smooth}body{background:var(--black);color:var(--text);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden}::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--gold)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(8,8,8,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}.nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none}.logo-box{border:2px solid var(--white);padding:4px 10px;display:flex;align-items:center}.logo-box span{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.35rem;letter-spacing:0.08em;color:var(--white)}.logo-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.25em;color:var(--off-white);text-transform:uppercase}.nav-links{display:flex;gap:2rem;list-style:none}.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--off-white);text-decoration:none;transition:color 0.2s}.nav-links a:hover,.nav-links a.active{color:var(--gold)}.nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:0.5rem 1.2rem;text-decoration:none}
+    .hero-col{min-height:75vh;display:flex;align-items:flex-end;padding:9rem 3rem 5rem;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+    .hero-col::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(196,147,63,0.08) 0%,transparent 60%)}
+    .breadcrumb{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--off-white);margin-bottom:1.5rem}.breadcrumb a{color:var(--gold);text-decoration:none}
+    .section-label{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.8rem}.section-label::before{content:'';display:block;width:1.5rem;height:1px;background:var(--gold)}
+    .hero-col-content{max-width:800px}
+    .page-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,8vw,7.5rem);line-height:0.9;color:var(--white);text-transform:uppercase;margin-bottom:1.5rem}.page-title .accent{color:var(--gold)}
+    .page-sub{font-size:1.05rem;line-height:1.85;color:var(--off-white);max-width:600px}
+    .article-body{max-width:none}
+    .chapter{display:grid;grid-template-columns:280px 1fr;border-bottom:1px solid var(--border)}
+    .chapter-aside{padding:4rem 3rem;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:1rem;position:sticky;top:80px;align-self:start}
+    .chapter-num{font-family:'Barlow Condensed',sans-serif;font-size:5rem;font-weight:900;color:var(--border);line-height:1}
+    .chapter-label{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)}
+    .chapter-title-aside{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;color:var(--white);text-transform:uppercase;line-height:1.2}
+    .chapter-content{padding:4rem 3rem;display:flex;flex-direction:column;gap:1.8rem}
+    .chapter-heading{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;color:var(--white);text-transform:uppercase;line-height:1}
+    .chapter-heading .gold{color:var(--gold)}
+    .chapter-text{font-size:0.95rem;line-height:1.95;color:var(--off-white)}
+    .pull-quote{border-left:2px solid var(--gold);padding:1rem 2rem;margin:0.5rem 0}
+    .pull-quote p{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;line-height:1.35;color:var(--white);text-transform:uppercase}
+    .regions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;background:var(--border)}
+    .region-card{background:var(--card);padding:2rem;display:flex;flex-direction:column;gap:0.6rem}
+    .region-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;color:var(--white);text-transform:uppercase}
+    .region-detail{font-size:0.82rem;line-height:1.7;color:var(--off-white)}
+    .region-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
+    footer{border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:var(--dark)}.footer-tagline{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--off-white)}.footer-copy{font-size:0.75rem;color:#555}
+    .wa-float{position:fixed;bottom:2rem;right:2rem;z-index:99;width:3.2rem;height:3.2rem;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.35);animation:floatPulse 3s ease-in-out infinite}.wa-float svg{width:1.6rem;height:1.6rem;fill:white}@keyframes floatPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 32px rgba(37,211,102,0.6)}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:768px){nav{padding:1.2rem 1.5rem}.nav-links{display:none}.nav-cta{display:none}.hero-col{padding:7rem 1.5rem 3rem;min-height:auto}.chapter{grid-template-columns:1fr}.chapter-aside{padding:3rem 1.5rem;border-right:none;border-bottom:1px solid var(--border);position:static}.chapter-content{padding:2.5rem 1.5rem}.regions-grid{grid-template-columns:1fr}footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.5rem}}
+  </style>
+</head>
+<body>
+<nav><a href="index.html" class="nav-logo"><div class="logo-box"><span>EJE</span></div><div class="logo-sub">Café en su punto</div></a><ul class="nav-links"><li><a href="cafes.html">Nuestros Cafés</a></li><li><a href="metodos.html">Métodos</a></li><li><a href="tutoriales.html">Tutoriales</a></li><li><a href="nosotros.html">Nosotros</a></li><li><a href="colombia.html" class="active">Colombia</a></li><li><a href="contacto.html">Contacto</a></li></ul><a class="nav-cta" href="contacto.html">Pedir ahora</a></nav>
+
+<div class="hero-col">
+  <div class="hero-col-content">
+    <div class="breadcrumb"><a href="index.html">EJE</a> → El Café Colombiano</div>
+    <div class="section-label">Raíces</div>
+    <h1 class="page-title">El café que<br>conquistó<br><span class="accent">al mundo.</span></h1>
+    <p class="page-sub">La historia del café colombiano contada desde adentro. Con datos, con orgullo, y con la honestidad de quien lo vive todos los días.</p>
+  </div>
+</div>
+
+<div class="article-body">
+  <div class="chapter reveal">
+    <div class="chapter-aside"><div class="chapter-num">01</div><div class="chapter-label">Los orígenes</div><div class="chapter-title-aside">De dónde venimos</div></div>
+    <div class="chapter-content">
+      <div class="chapter-heading">Una semilla.<br>Tres siglos de <span class="gold">historia.</span></div>
+      <p class="chapter-text">El café llegó a Colombia a finales del siglo XVIII, traído por jesuitas desde las Antillas. Pero fue en las montañas andinas donde encontró su hogar definitivo. El clima, la altura, la humedad y los suelos volcánicos crearon las condiciones perfectas para producir un café diferente a cualquier otro en el mundo.</p>
+      <div class="pull-quote"><p>"Colombia no cultiva café. Colombia es café."</p></div>
+      <p class="chapter-text">Hoy Colombia es el tercer productor de café más grande del planeta y el primero en café lavado suave. Un logro que no es casualidad — es el resultado de siglos de conocimiento transmitido de generación en generación, en miles de fincas que cubren la cordillera de norte a sur.</p>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-aside"><div class="chapter-num">02</div><div class="chapter-label">El territorio</div><div class="chapter-title-aside">La geografía del sabor</div></div>
+    <div class="chapter-content">
+      <div class="chapter-heading">Cada región.<br>Un <span class="gold">universo.</span></div>
+      <p class="chapter-text">Lo que hace único al café colombiano no es solo su calidad — es su diversidad. Cada región tiene su propio microclima, su propia altitud, su propia identidad en la taza. Un café del Huila nada tiene que ver con uno de Nariño, y los dos son extraordinarios por razones completamente diferentes.</p>
+      <div class="regions-grid">
+        <div class="region-card"><div class="region-tag">Huila · 1.500 – 2.000 msnm</div><div class="region-name">Huila</div><p class="region-detail">Notas de chocolate, caramelo y frutas rojas. Cuerpo equilibrado y dulzura natural. La región más reconocida internacionalmente por su consistencia y calidad.</p></div>
+        <div class="region-card"><div class="region-tag">Nariño · 1.800 – 2.300 msnm</div><div class="region-name">Nariño</div><p class="region-detail">Alta acidez brillante, notas florales y frutales delicadas. El café de mayor altitud del país, con una complejidad que sorprende en cada sorbo.</p></div>
+        <div class="region-card"><div class="region-tag">Antioquia · 1.400 – 1.900 msnm</div><div class="region-name">Antioquia</div><p class="region-detail">Cuerpo robusto, notas de cacao y nuez. El café que creció con el Eje Cafetero — profundo, reconfortante y con mucho carácter.</p></div>
+        <div class="region-card"><div class="region-tag">Cauca · 1.700 – 2.100 msnm</div><div class="region-name">Cauca</div><p class="region-detail">Perfiles limpios y vibrantes. Notas de panela, cítrico y especias suaves. Un café que está ganando reconocimiento mundial por su identidad marcada.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-aside"><div class="chapter-num">03</div><div class="chapter-label">La paradoja</div><div class="chapter-title-aside">La verdad que nadie dice</div></div>
+    <div class="chapter-content">
+      <div class="chapter-heading">Colombia exporta<br>lo mejor.<br><span class="gold">¿Y nosotros?</span></div>
+      <p class="chapter-text">Colombia produce café de clase mundial. Pero la cruel paradoja es que una gran parte de ese café sale del país para enriquecer las mesas de Europa, Japón y Estados Unidos. Lo que se queda — lo que muchos colombianos toman todos los días — con frecuencia es lo que no pasó los estándares de exportación.</p>
+      <div class="pull-quote"><p>"El mejor café del mundo se produce aquí. Merece quedarse aquí también."</p></div>
+      <p class="chapter-text">No es un problema de producción. Es un problema de acceso, de intermediarios y de desinformación. EJE existe para cerrar esa brecha — para que el colombiano que se levanta a las 5am tenga acceso al mismo café que el barista en Tokio usa para hacer un espresso a $18 dólares.</p>
+    </div>
+  </div>
+</div>
+
+<footer><div class="nav-logo" style="pointer-events:none"><div class="logo-box" style="border-color:#333"><span style="color:#555">EJE</span></div></div><span class="footer-tagline">ORIGEN · CALIDAD · PRECISIÓN</span><span class="footer-copy">© 2026 EJE — Café en su punto</span></footer>
+<a class="wa-float" href="https://wa.me/573332874542?text=Hola%20EJE%20%E2%98%95%20Quiero%20hacer%20un%20pedido" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<script>const reveals=document.querySelectorAll('.reveal');const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:0.08});reveals.forEach(el=>observer.observe(el));</script>
+</body></html>
