@@ -1,266 +1,296 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EJE — Café en su Punto</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--black:#080808;--dark:#111111;--card:#161616;--border:#252525;--white:#F4F0EA;--off-white:#c8c4be;--gold:#C4933F;--gold-light:#d9a84e;--text:#e8e4de}
-    html{scroll-behavior:smooth}
-    body{background:var(--black);color:var(--text);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden}
-    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--gold)}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;transition:background 0.4s}
-    nav.scrolled{background:rgba(8,8,8,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-    .nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none}
-    .logo-box{border:2px solid var(--white);padding:4px 10px;display:flex;align-items:center}
-    .logo-box span{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.35rem;letter-spacing:0.08em;color:var(--white)}
-    .logo-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.25em;color:var(--off-white);text-transform:uppercase}
-    .nav-links{display:flex;gap:2rem;list-style:none}
-    .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--off-white);text-decoration:none;transition:color 0.2s}
-    .nav-links a:hover{color:var(--gold)}
-    .nav-cta{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:0.5rem 1.2rem;text-decoration:none;transition:background 0.2s}
-    .nav-cta:hover{background:var(--gold-light)}
-
-    /* HERO */
-    #hero{height:100vh;min-height:700px;position:relative;display:flex;align-items:flex-end;overflow:hidden}
-    .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center 30%;filter:brightness(0.45);transform:scale(1.05);transition:transform 8s ease}
-    #hero:hover .hero-bg{transform:scale(1.08)}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,0.96) 0%,rgba(8,8,8,0.3) 55%,rgba(8,8,8,0.1) 100%)}
-    .hero-content{position:relative;z-index:2;padding:0 3rem 6rem;max-width:800px}
-    .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem}
-    .hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--gold)}
-    .hero-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,10vw,8rem);line-height:0.9;color:var(--white);text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:1.8rem}
-    .hero-title .accent{color:var(--gold)}
-    .hero-body{font-size:1rem;line-height:1.75;color:var(--off-white);max-width:420px;margin-bottom:2.5rem}
-    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
-    .btn-primary{font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:0.85rem 2.2rem;text-decoration:none;transition:background 0.2s,transform 0.15s;display:inline-block}
-    .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px)}
-    .btn-outline{font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);background:transparent;border:1px solid rgba(244,240,234,0.3);padding:0.85rem 2.2rem;text-decoration:none;transition:border-color 0.2s;display:inline-block}
-    .btn-outline:hover{border-color:var(--white)}
-    .hero-scroll{position:absolute;bottom:2.5rem;right:3rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem;z-index:2}
-    .hero-scroll span{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.3em;color:var(--off-white);text-transform:uppercase;writing-mode:vertical-rl}
-    .scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
-    @keyframes scrollPulse{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:0.4;transform:scaleY(0.6)}}
-
-    /* PILLARS */
-    #pillars{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border)}
-    .pillar{padding:3rem 2.5rem;border-right:1px solid var(--border);position:relative;overflow:hidden}
-    .pillar:last-child{border-right:none}
-    .pillar::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width 0.5s ease}
-    .pillar:hover::after{width:100%}
-    .pillar-num{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.3em;color:var(--gold);margin-bottom:1.2rem}
-    .pillar-title{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:0.05em;color:var(--white);text-transform:uppercase;margin-bottom:0.8rem}
-    .pillar-text{font-size:0.88rem;line-height:1.7;color:var(--off-white)}
-
-    /* SECTIONS GRID */
-    .sections-intro{padding:5rem 3rem 2rem}
-    .section-label{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.8rem}
-    .section-label::before{content:'';display:block;width:1.5rem;height:1px;background:var(--gold)}
-    .section-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.5rem,5vw,4rem);line-height:1;color:var(--white);text-transform:uppercase;margin-bottom:0.8rem}
-    .section-sub{font-size:0.95rem;line-height:1.8;color:var(--off-white);max-width:500px}
-
-    .sections-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);margin-top:3rem}
-    .sec-card{background:var(--card);padding:3rem 2.5rem;text-decoration:none;display:flex;flex-direction:column;gap:1.2rem;position:relative;overflow:hidden;transition:background 0.3s;min-height:320px}
-    .sec-card:hover{background:#1c1c1c}
-    .sec-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width 0.5s ease}
-    .sec-card:hover::after{width:100%}
-    .sec-card-num{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase}
-    .sec-card-icon{font-size:2.8rem;opacity:0.85;margin:0.5rem 0}
-    .sec-card-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;color:var(--white);text-transform:uppercase;line-height:1;letter-spacing:0.03em}
-    .sec-card-desc{font-size:0.85rem;line-height:1.7;color:var(--off-white);flex:1}
-    .sec-card-arrow{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:auto;display:flex;align-items:center;gap:0.5rem}
-    .sec-card-arrow::after{content:'→';font-size:1rem}
-    .sec-card.featured{background:var(--dark);grid-column:span 2}
-
-    /* MARQUEE */
-    .marquee-section{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:1.2rem 0;background:var(--dark)}
-    .marquee-track{display:flex;white-space:nowrap;animation:marqueeScroll 20s linear infinite;width:max-content}
-    .marquee-item{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--off-white);padding:0 3rem}
-    .marquee-item span{color:var(--gold);margin:0 0.3rem}
-    @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-    /* FOOTER */
-    footer{border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:var(--dark)}
-    .footer-tagline{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--off-white)}
-    .footer-copy{font-size:0.75rem;color:#555}
-
-    /* WA FLOAT */
-    .wa-float{position:fixed;bottom:2rem;right:2rem;z-index:99;width:3.2rem;height:3.2rem;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:transform 0.2s;animation:floatPulse 3s ease-in-out infinite}
-    .wa-float:hover{transform:scale(1.1)}
-    .wa-float svg{width:1.6rem;height:1.6rem;fill:white}
-    @keyframes floatPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 32px rgba(37,211,102,0.6)}}
-
-    .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-
-    @media(max-width:768px){
-      nav{padding:1.2rem 1.5rem}.nav-links{display:none}.nav-cta{display:none}
-      .hero-content{padding:0 1.5rem 5rem}
-      #pillars{grid-template-columns:1fr}
-      .pillar{border-right:none;border-bottom:1px solid var(--border)}
-      .pillar:last-child{border-bottom:none}
-      .sections-intro{padding:3rem 1.5rem 1rem}
-      .sections-grid{grid-template-columns:1fr}
-      .sec-card.featured{grid-column:span 1}
-      footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.5rem}
-      .wa-float{bottom:1.5rem;right:1.5rem}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EJE Café</title>
+<style>
+html,body{margin:0;padding:0;min-height:100vh;background-color:#111111;font-family:Arial,sans-serif}
+.page{min-height:100vh;background-color:#111111;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px}
+.logo-box{border:3px solid #f5f2ee;padding:10px 28px;margin-bottom:16px}
+.logo-text{font-size:52px;letter-spacing:8px;color:#f5f2ee;display:block;line-height:1;font-weight:900}
+.tagline{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c8956c;margin-bottom:6px;text-align:center}
+.btn{width:100%;max-width:380px;display:flex;align-items:center;gap:16px;padding:16px 20px;text-decoration:none;background-color:#1e1e1e;border:1px solid #333333;margin-bottom:12px;cursor:pointer;box-sizing:border-box}
+.btn:hover{background-color:#252525;border-color:#c8956c}
+.btn-preventa{border-color:#c8956c;background-color:#1a1008}
+.btn-preventa:hover{background-color:#221508}
+.icon-circle{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.icon-wa{background-color:#25D366}
+.icon-ig{background:linear-gradient(135deg,#f09433,#dc2743,#bc1888)}
+.icon-fb{background-color:#1877F2}
+.icon-cafe{background-color:#c8956c}
+.icon-web{background-color:#444444}
+.icon-circle svg{width:20px;height:20px;fill:white}
+.label-main{display:block;font-size:15px;font-weight:bold;color:#f5f2ee;margin-bottom:2px}
+.label-sub{display:block;font-size:12px;color:#777777}
+.arrow{margin-left:auto;color:#555555;font-size:18px}
+.divider{width:100%;max-width:380px;display:flex;align-items:center;gap:12px;margin:4px 0 16px}
+.line{flex:1;height:1px;background-color:#2a2a2a}
+.divider-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#444444}
+.btn-disabled{opacity:0.4;cursor:default;border-style:dashed}
+.badge{margin-left:auto;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#c8956c;background-color:#1f1508;border:1px solid #3a2a10;padding:3px 8px;white-space:nowrap}
+.badge-hot{margin-left:auto;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#111;background-color:#c8956c;border:1px solid #c8956c;padding:3px 8px;white-space:nowrap}
+.footer{margin-top:40px;text-align:center}
+.footer p{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#333333}
+.overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:1000;align-items:flex-start;justify-content:center;padding:16px;box-sizing:border-box;overflow-y:auto}
+.overlay.active{display:flex}
+.popup{background:#111111;border:1px solid #5a3e1b;max-width:400px;width:100%;position:relative;margin:auto}
+.popup::before{content:'';position:absolute;top:5px;left:5px;right:5px;bottom:5px;border:1px solid #2a1e0e;pointer-events:none;z-index:0}
+.corner{position:absolute;width:12px;height:12px;border-color:#8a5c2a;border-style:solid;z-index:2}
+.corner-tl{top:8px;left:8px;border-width:2px 0 0 2px}
+.corner-tr{top:8px;right:8px;border-width:2px 2px 0 0}
+.corner-bl{bottom:8px;left:8px;border-width:0 0 2px 2px}
+.corner-br{bottom:8px;right:8px;border-width:0 2px 2px 0}
+.close-btn{position:absolute;top:10px;right:14px;background:none;border:none;color:#555;font-size:22px;cursor:pointer;z-index:10;line-height:1}
+.close-btn:hover{color:#c8956c}
+.popup-header{padding:20px 24px 16px;text-align:center;border-bottom:1px solid #2a1e0e;position:relative;z-index:1}
+.popup-header-tag{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#8a5c2a;margin-bottom:10px}
+.popup-logo-box{display:inline-block;border:3px solid #f5f2ee;padding:7px 22px;margin-bottom:8px}
+.popup-logo-text{font-size:38px;letter-spacing:8px;color:#f5f2ee;font-weight:900;line-height:1;display:block}
+.popup-rule{display:flex;align-items:center;gap:8px;justify-content:center;margin:8px 0}
+.rule-line{flex:1;height:1px;background:#2a1e0e;max-width:50px}
+.rule-diamond{width:5px;height:5px;background:#8a5c2a;transform:rotate(45deg)}
+.popup-header-sub{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#555}
+.score-bar{background:#0d0d0d;border-bottom:1px solid #2a1e0e;padding:16px 24px;position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.score-block{text-align:center}
+.score-num{font-size:42px;font-weight:900;color:#c8956c;line-height:1}
+.score-label{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#6b4d2a;margin-top:3px}
+.score-divider{width:1px;height:50px;background:#2a1e0e}
+.score-meta{flex:1}
+.score-meta-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid #1a1208}
+.score-meta-row:last-child{border-bottom:none}
+.score-meta-key{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#555}
+.score-meta-val{font-size:9px;letter-spacing:1px;color:#c8956c;font-weight:700;text-transform:uppercase}
+.notas-section{background:#111111;border-bottom:1px solid #2a1e0e;padding:14px 24px;position:relative;z-index:1}
+.notas-tag{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#6b4d2a;margin-bottom:10px}
+.notas-chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#c8956c;border:1px solid #3a2510;padding:4px 10px;background:#0d0d0d}
+.counter-section{background:#0d0d0d;border-bottom:1px solid #2a1e0e;padding:16px 24px;position:relative;z-index:1;text-align:center}
+.counter-tag{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#6b4d2a;margin-bottom:8px}
+.counter-wrap{display:flex;align-items:baseline;justify-content:center;gap:4px}
+.counter-num{font-size:64px;font-weight:900;color:#c8956c;line-height:1}
+.counter-sep{font-size:20px;color:#2a1e0e;font-weight:900;margin:0 4px}
+.counter-total{font-size:20px;color:#2a1e0e;font-weight:900}
+.counter-sub{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#2a2a2a;margin-top:6px}
+.urgency-track{height:2px;background:#1a1208;margin-top:12px}
+.urgency-fill{height:100%;background:#c8956c;width:53%;transition:width 0.4s}
+.popup-body{padding:18px 24px;position:relative;z-index:1}
+.product-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid #1a1a1a;margin-bottom:14px}
+.product-name{font-size:14px;font-weight:700;color:#f5f2ee;margin-bottom:3px}
+.product-lote{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#555}
+.price-block{text-align:right}
+.price-val{font-size:18px;font-weight:900;color:#c8956c}
+.price-label{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#555;margin-top:2px}
+.price-envio{font-size:9px;letter-spacing:1px;color:#8a5c2a;margin-top:2px}
+.section-label{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#555;margin-bottom:7px}
+.tipo-btns{display:flex;gap:8px;margin-bottom:14px}
+.tipo-btn{flex:1;padding:10px 8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.15s;font-family:Arial,sans-serif;border-radius:0}
+.tipo-btn.active{background:#c8956c;border:1px solid #c8956c;color:#111;font-weight:700}
+.tipo-btn.inactive{background:transparent;border:1px solid #222;color:#555}
+.tipo-btn.inactive:hover{border-color:#c8956c;color:#c8956c}
+.form-input{width:100%;box-sizing:border-box;padding:10px 12px;background:#0d0d0d;border:1px solid #1e1e1e;color:#f5f2ee;font-size:12px;margin-bottom:8px;outline:none;font-family:Arial,sans-serif;border-radius:0}
+.form-input::placeholder{color:#2a2a2a}
+.form-input:focus{border-color:#8a5c2a}
+.entrega-row{display:flex;align-items:center;gap:12px;background:#0d0d0d;border-left:2px solid #c8956c;border-top:1px solid #1e1e1e;border-right:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;padding:10px 14px;margin-bottom:14px}
+.entrega-text{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#555}
+.entrega-date{font-size:12px;color:#f5f2ee;font-weight:700;margin-left:auto}
+.submit-btn{width:100%;padding:13px;background:#c8956c;border:none;color:#111;font-size:9px;font-weight:900;cursor:pointer;letter-spacing:5px;text-transform:uppercase;font-family:Arial,sans-serif;transition:background 0.15s;border-radius:0}
+.submit-btn:hover{background:#d4a47c}
+.nota{text-align:center;margin-top:8px;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#2a2a2a}
+.confirmacion{display:none;padding:32px 24px;text-align:center;position:relative;z-index:1}
+.conf-deco{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:16px}
+.conf-deco-line{flex:1;height:1px;background:#2a1e0e;max-width:60px}
+.conf-deco-diamond{width:6px;height:6px;background:#c8956c;transform:rotate(45deg)}
+.conf-tag{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:#8a5c2a;margin-bottom:6px}
+.conf-numero{font-size:52px;font-weight:900;color:#c8956c;line-height:1;margin-bottom:4px}
+.conf-denom{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#3a2510;margin-bottom:18px}
+.conf-mensaje{font-size:11px;color:#666;line-height:1.7;margin-bottom:18px}
+.conf-box{background:#0d0d0d;border:1px solid #2a1e0e;padding:12px 16px}
+.conf-box-tag{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#8a5c2a;margin-bottom:5px}
+.conf-box-val{font-size:12px;font-weight:700;color:#f5f2ee;letter-spacing:1px}
+</style>
 </head>
 <body>
 
-<nav id="navbar">
-  <a href="index.html" class="nav-logo">
-    <div class="logo-box"><span>EJE</span></div>
-    <div class="logo-sub">Café en su punto</div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="cafes.html">Nuestros Cafés</a></li>
-    <li><a href="metodos.html">Métodos</a></li>
-    <li><a href="tutoriales.html">Tutoriales</a></li>
-    <li><a href="nosotros.html">Nosotros</a></li>
-    <li><a href="colombia.html">Colombia</a></li>
-    <li><a href="contacto.html">Contacto</a></li>
-  </ul>
-  <a class="nav-cta" href="contacto.html">Pedir ahora</a>
-</nav>
+<div class="overlay active" id="overlay">
+  <div class="popup">
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
 
-<section id="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-tag">LOTE 001 — DISPONIBLE AHORA</div>
-    <h1 class="hero-title">
-      Más que café,<br>
-      <span class="accent">Precisión.</span>
-    </h1>
-    <p class="hero-body">
-      Cada grano, seleccionado con intención. Cada tueste, calculado al detalle.
-      Café colombiano de origen — porque la taza perfecta no sucede por azar.
-    </p>
-    <div class="hero-actions">
-      <a class="btn-primary" href="cafes.html">Ver nuestros cafés</a>
-      <a class="btn-outline" href="nosotros.html">Nuestra historia</a>
+    <div class="popup-header">
+      <button class="close-btn" onclick="document.getElementById('overlay').classList.remove('active')">×</button>
+      <p class="popup-header-tag">Preventa exclusiva · Lote 001</p>
+      <div class="popup-logo-box"><span class="popup-logo-text">EJE</span></div>
+      <div class="popup-rule"><div class="rule-line"></div><div class="rule-diamond"></div><div class="rule-line"></div></div>
+      <p class="popup-header-sub">Café Colombiano de Origen &nbsp;·&nbsp; La Mesa, Cund.</p>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-block">
+        <div class="score-num">85</div>
+        <div class="score-label">Puntos SCA</div>
+      </div>
+      <div class="score-divider"></div>
+      <div class="score-meta">
+        <div class="score-meta-row"><span class="score-meta-key">Variedad</span><span class="score-meta-val">Arábica</span></div>
+        <div class="score-meta-row"><span class="score-meta-key">Altitud</span><span class="score-meta-val">1,850 MSNM</span></div>
+        <div class="score-meta-row"><span class="score-meta-key">Proceso</span><span class="score-meta-val">Lavado</span></div>
+        <div class="score-meta-row"><span class="score-meta-key">Origen</span><span class="score-meta-val">Colombia</span></div>
+      </div>
+    </div>
+
+    <div class="notas-section">
+      <p class="notas-tag">Notas de cata</p>
+      <div class="notas-chips">
+        <span class="chip">Dulce</span>
+        <span class="chip">Azúcar morena</span>
+        <span class="chip">Crema</span>
+        <span class="chip">Especias</span>
+        <span class="chip">Anís</span>
+        <span class="chip">Mielada</span>
+        <span class="chip">Naranja</span>
+      </div>
+    </div>
+
+    <div class="counter-section">
+      <p class="counter-tag">Unidades disponibles</p>
+      <div class="counter-wrap">
+        <span class="counter-num" id="contador">53</span>
+        <span class="counter-sep">/</span>
+        <span class="counter-total">100</span>
+      </div>
+      <p class="counter-sub">Cosecha limitada · Solo esta temporada</p>
+      <div class="urgency-track"><div class="urgency-fill" id="barra"></div></div>
+    </div>
+
+    <div class="popup-body" id="popup-form">
+      <div class="product-header">
+        <div>
+          <p class="product-name">Café de altura · 250 g</p>
+          <p class="product-lote">Lote 001 · Cata: Feb 17, 2026</p>
+        </div>
+        <div class="price-block">
+          <p class="price-val">$35.000</p>
+          <p class="price-label">COP por bolsa</p>
+          <p class="price-envio">+ envío adicional</p>
+        </div>
+      </div>
+
+      <p class="section-label">Selecciona tu molienda</p>
+      <div class="tipo-btns">
+        <button class="tipo-btn active" id="btn-molido" onclick="seleccionarTipo('molido')">Molido</button>
+        <button class="tipo-btn inactive" id="btn-grano" onclick="seleccionarTipo('grano')">En grano</button>
+      </div>
+
+      <form id="forma-preventa" onsubmit="enviarReserva(event)">
+        <input type="hidden" name="tipo_cafe" id="campo-tipo" value="Molido"/>
+        <input type="hidden" name="_subject" value="Nueva reserva EJE Café — Lote 001"/>
+        <input class="form-input" type="text" name="nombre" placeholder="Nombre completo" required/>
+        <input class="form-input" type="email" name="correo" placeholder="Correo (recibirás tu confirmación)" required/>
+        <input class="form-input" type="tel" name="telefono" placeholder="WhatsApp (opcional)"/>
+        <div class="entrega-row">
+          <span class="entrega-text">Entrega estimada</span>
+          <span class="entrega-date">29 de mayo</span>
+        </div>
+        <button class="submit-btn" type="submit">Reservar mi lugar</button>
+      </form>
+      <p class="nota">Sin costo adicional al reservar &nbsp;·&nbsp; Solo 100 unidades</p>
+    </div>
+
+    <div class="confirmacion" id="popup-confirmacion">
+      <div class="conf-deco"><div class="conf-deco-line"></div><div class="conf-deco-diamond"></div><div class="conf-deco-line"></div></div>
+      <p class="conf-tag">Tu lugar en la fila</p>
+      <p class="conf-numero" id="conf-numero">—</p>
+      <p class="conf-denom">de 100 unidades · Lote 001</p>
+      <p class="conf-mensaje" id="conf-mensaje"></p>
+      <div class="conf-box">
+        <p class="conf-box-tag">Resumen de tu reserva</p>
+        <p class="conf-box-val" id="conf-resumen">—</p>
+      </div>
     </div>
   </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
-</section>
-
-<div id="pillars">
-  <div class="pillar reveal">
-    <div class="pillar-num">01 — ORIGEN</div>
-    <div class="pillar-title">Colombia, de frente</div>
-    <p class="pillar-text">Trabajamos directamente con fincas cafeteras de todo el país, donde el café llega a su potencial real.</p>
-  </div>
-  <div class="pillar reveal" style="transition-delay:0.12s">
-    <div class="pillar-num">02 — CALIDAD</div>
-    <div class="pillar-title">Sin compromisos</div>
-    <p class="pillar-text">Solo granos de especialidad. Nada que no cumpla el estándar EJE llega a tu taza. Así de simple.</p>
-  </div>
-  <div class="pillar reveal" style="transition-delay:0.24s">
-    <div class="pillar-num">03 — PRECISIÓN</div>
-    <div class="pillar-title">Todo en su punto</div>
-    <p class="pillar-text">Del tueste al empaque, cada paso es deliberado. La precisión no es un detalle — es el producto.</p>
-  </div>
 </div>
 
-<div class="marquee-section">
-  <div class="marquee-track">
-    <div class="marquee-item">ORIGEN <span>•</span></div>
-    <div class="marquee-item">CALIDAD <span>•</span></div>
-    <div class="marquee-item">PRECISIÓN <span>•</span></div>
-    <div class="marquee-item">CAFÉ EN SU PUNTO <span>•</span></div>
-    <div class="marquee-item">COLOMBIA <span>•</span></div>
-    <div class="marquee-item">SIN DESVIACIONES <span>•</span></div>
-    <div class="marquee-item">LOTE 001 <span>•</span></div>
-    <div class="marquee-item">TODO EN SU PUNTO <span>•</span></div>
-    <div class="marquee-item">ORIGEN <span>•</span></div>
-    <div class="marquee-item">CALIDAD <span>•</span></div>
-    <div class="marquee-item">PRECISIÓN <span>•</span></div>
-    <div class="marquee-item">CAFÉ EN SU PUNTO <span>•</span></div>
-    <div class="marquee-item">COLOMBIA <span>•</span></div>
-    <div class="marquee-item">SIN DESVIACIONES <span>•</span></div>
-    <div class="marquee-item">LOTE 001 <span>•</span></div>
-    <div class="marquee-item">TODO EN SU PUNTO <span>•</span></div>
-  </div>
+<div class="page">
+  <div class="logo-box"><span class="logo-text">EJE</span></div>
+  <p class="tagline">Café Colombiano de Origen</p>
+
+  <a class="btn btn-preventa" href="#" onclick="document.getElementById('overlay').classList.add('active'); return false;">
+    <div class="icon-circle icon-cafe">
+      <svg viewBox="0 0 24 24"><path d="M18.5 3H6c-1.1 0-2 .9-2 2v5.71c0 3.83 2.95 7.18 6.78 7.29 3.96.12 7.22-3.06 7.22-7V5c0-.55-.45-1-1-1zm-4.5 8c0 1.1-.9 2-2 2s-2-.9-2-2V5h4v6zm6.5 1c0 .55-.45 1-1 1h-1v-4h1c.55 0 1 .45 1 1v2zM4 19h16v2H4z"/></svg>
+    </div>
+    <div><span class="label-main">Reserva tu café — Preventa</span><span class="label-sub">53 unidades · $35.000 + envío · 29 mayo</span></div>
+    <span class="badge-hot">Reservar</span>
+  </a>
+
+  <a class="btn" href="https://wa.me/message/HV5O7PMH7WURK1" target="_blank">
+    <div class="icon-circle icon-wa">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </div>
+    <div><span class="label-main">Pedir por WhatsApp</span><span class="label-sub">Respuesta rápida · Todo Colombia</span></div>
+    <span class="arrow">→</span>
+  </a>
+
+  <a class="btn" href="https://www.instagram.com/ejecoffe" target="_blank">
+    <div class="icon-circle icon-ig">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </div>
+    <div><span class="label-main">Síguenos en Instagram</span><span class="label-sub">@ejecoffe</span></div>
+    <span class="arrow">→</span>
+  </a>
+
+  <a class="btn" href="https://www.facebook.com/share/1DJB35zUJ9/?mibextid=wwXIfr" target="_blank">
+    <div class="icon-circle icon-fb">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </div>
+    <div><span class="label-main">Síguenos en Facebook</span><span class="label-sub">EJE Café Colombiano</span></div>
+    <span class="arrow">→</span>
+  </a>
+
+  <div class="divider"><div class="line"></div><span class="divider-label">Próximamente</span><div class="line"></div></div>
+
+  <a class="btn btn-disabled" href="#" onclick="return false;">
+    <div class="icon-circle icon-web">
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm1 16.057v-3.057h2.994c-.059 1.143-.212 2.24-.456 3.279-.823-.12-1.674-.188-2.538-.222zm1.957 2.162c-.499 1.33-1.159 2.497-1.957 3.456v-3.62c.666.028 1.319.081 1.957.164zm-1.957-7.219v-3.015c.868-.034 1.721-.103 2.548-.224.238 1.027.389 2.111.446 3.239h-2.994zm0-5.014v-3.661c.806.969 1.471 2.15 1.971 3.496-.642.084-1.3.137-1.971.165zm2.703-3.267c1.237.496 2.354 1.228 3.29 2.146-.642.234-1.311.442-2.019.607-.344-.992-.775-1.91-1.271-2.753zm-7.241 13.56c-.244-1.039-.398-2.136-.456-3.279h2.994v3.057c-.865.034-1.714.102-2.538.222zm2.538 1.776v3.62c-.798-.959-1.458-2.126-1.957-3.456.638-.083 1.291-.136 1.957-.164zm-2.994-7.055c.057-1.128.207-2.212.446-3.239.827.121 1.68.19 2.548.224v3.015h-2.994zm1.024-5.179c.5-1.346 1.165-2.527 1.97-3.496v3.661c-.671-.028-1.329-.081-1.97-.165zm-2.005-.35c-.708-.165-1.377-.373-2.018-.607.937-.918 2.053-1.65 3.29-2.146-.496.844-.927 1.762-1.272 2.753zm-.549 1.918c-.264 1.151-.434 2.36-.492 3.611h-3.933c.165-1.658.739-3.197 1.617-4.518.88.361 1.816.67 2.808.907zm.009 9.262c-.988.236-1.92.542-2.797.9-.89-1.328-1.471-2.879-1.637-4.551h3.934c.058 1.265.231 2.488.5 3.651zm.553 1.917c.342.976.768 1.881 1.257 2.712-1.223-.49-2.326-1.211-3.256-2.115.636-.229 1.299-.435 1.999-.597zm9.924 0c.7.163 1.362.367 1.999.597-.931.903-2.034 1.625-3.257 2.116.489-.832.915-1.737 1.258-2.713zm.553-1.917c.27-1.163.442-2.386.501-3.651h3.934c-.167 1.672-.748 3.223-1.638 4.551-.877-.358-1.81-.664-2.797-.9z"/></svg>
+    </div>
+    <div><span class="label-main">Tienda online</span><span class="label-sub">En construcción</span></div>
+    <span class="badge">Pronto</span>
+  </a>
+
+  <div class="footer"><p>EJE · Café Colombiano · La Mesa, Cund.</p></div>
 </div>
-
-<div class="sections-intro reveal">
-  <div class="section-label">Explora EJE</div>
-  <div class="section-title">Todo lo que<br>necesitas saber.</div>
-  <p class="section-sub">Desde el grano hasta tu taza — encuentra los cafés, los métodos, los tutoriales y la historia detrás de cada sorbo.</p>
-</div>
-
-<div class="sections-grid">
-  <a href="cafes.html" class="sec-card featured reveal">
-    <div class="sec-card-num">01 — CATÁLOGO</div>
-    <div class="sec-card-icon">🫘</div>
-    <div class="sec-card-title">Nuestros<br>Cafés</div>
-    <p class="sec-card-desc">Variedades de todas las regiones de Colombia. Diferentes orígenes, diferentes perfiles, diferentes historias. Encuentra el tuyo.</p>
-    <div class="sec-card-arrow">Explorar cafés</div>
-  </a>
-  <a href="metodos.html" class="sec-card reveal" style="transition-delay:0.1s">
-    <div class="sec-card-num">02 — MÉTODOS</div>
-    <div class="sec-card-icon">☕</div>
-    <div class="sec-card-title">Métodos de<br>Preparación</div>
-    <p class="sec-card-desc">Prensa francesa, pour over, moka y más. Encuentra el método que se adapta a ti y te lo llevamos.</p>
-    <div class="sec-card-arrow">Ver métodos</div>
-  </a>
-  <a href="tutoriales.html" class="sec-card reveal" style="transition-delay:0.15s">
-    <div class="sec-card-num">03 — APRENDE</div>
-    <div class="sec-card-icon">🎬</div>
-    <div class="sec-card-title">Tutoriales</div>
-    <p class="sec-card-desc">Paso a paso, en video. Aprende a preparar la taza perfecta con cada método, desde cero.</p>
-    <div class="sec-card-arrow">Ver tutoriales</div>
-  </a>
-  <a href="nosotros.html" class="sec-card reveal" style="transition-delay:0.2s">
-    <div class="sec-card-num">04 — MARCA</div>
-    <div class="sec-card-icon">⬛</div>
-    <div class="sec-card-title">Nuestra<br>Historia</div>
-    <p class="sec-card-desc">Por qué existimos, de dónde venimos y adónde vamos. La razón detrás de cada decisión en EJE.</p>
-    <div class="sec-card-arrow">Conocernos</div>
-  </a>
-  <a href="colombia.html" class="sec-card reveal" style="transition-delay:0.25s">
-    <div class="sec-card-num">05 — RAÍCES</div>
-    <div class="sec-card-icon">🇨🇴</div>
-    <div class="sec-card-title">El Café<br>Colombiano</div>
-    <p class="sec-card-desc">La historia del café que conquistó al mundo — contada desde adentro, con orgullo colombiano.</p>
-    <div class="sec-card-arrow">Leer historia</div>
-  </a>
-  <a href="contacto.html" class="sec-card reveal" style="transition-delay:0.3s">
-    <div class="sec-card-num">06 — CONTACTO</div>
-    <div class="sec-card-icon">💬</div>
-    <div class="sec-card-title">Háblanos</div>
-    <p class="sec-card-desc">WhatsApp, redes sociales o déjanos un comentario. Estamos aquí para lo que necesites.</p>
-    <div class="sec-card-arrow">Contactar</div>
-  </a>
-</div>
-
-<footer>
-  <div class="nav-logo" style="pointer-events:none">
-    <div class="logo-box" style="border-color:#333"><span style="color:#555">EJE</span></div>
-  </div>
-  <span class="footer-tagline">ORIGEN · CALIDAD · PRECISIÓN</span>
-  <span class="footer-copy">© 2026 EJE — Café en su punto</span>
-</footer>
-
-<a class="wa-float" href="https://wa.me/573332874542?text=Hola%20EJE%20%E2%98%95%20Quiero%20hacer%20un%20pedido" target="_blank">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
 
 <script>
-  document.getElementById('heroBg').style.backgroundImage = "url('hero.jpg')";
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)} }), {threshold:0.08});
-  reveals.forEach(el => observer.observe(el));
+var tipoSeleccionado='Molido';
+var reservas=47;
+function seleccionarTipo(t){
+  tipoSeleccionado=t==='molido'?'Molido':'En grano';
+  document.getElementById('campo-tipo').value=tipoSeleccionado;
+  document.getElementById('btn-molido').className='tipo-btn '+(t==='molido'?'active':'inactive');
+  document.getElementById('btn-grano').className='tipo-btn '+(t==='grano'?'active':'inactive');
+}
+function enviarReserva(e){
+  e.preventDefault();
+  var f=document.getElementById('forma-preventa');
+  var nombre=f.querySelector('[name="nombre"]').value.trim();
+  var correo=f.querySelector('[name="correo"]').value.trim();
+  fetch('https://formspree.io/f/mrejwglo',{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}})
+  .then(function(r){
+    if(r.ok){
+      reservas++;
+      var rest=Math.max(0,53-(reservas-47));
+      document.getElementById('contador').textContent=rest;
+      document.getElementById('barra').style.width=Math.round((rest/100)*100)+'%';
+      document.getElementById('conf-numero').textContent='#'+reservas;
+      document.getElementById('conf-mensaje').textContent='Hola '+nombre+', tu café '+tipoSeleccionado.toLowerCase()+' de 250 g (Lote 001) está reservado. Te escribiremos a '+correo+' con los detalles de pago y entrega.';
+      document.getElementById('conf-resumen').textContent='Café '+tipoSeleccionado.toLowerCase()+' · 250 g · Lote 001 · 29 de mayo';
+      document.getElementById('popup-form').style.display='none';
+      document.getElementById('popup-confirmacion').style.display='block';
+    } else { alert('Hubo un error. Intenta de nuevo o contáctanos por WhatsApp.'); }
+  }).catch(function(){alert('Error de conexión. Por favor intenta de nuevo.');});
+}
 </script>
 </body>
 </html>
